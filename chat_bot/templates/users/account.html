@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section id="user_update">
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-lg-4 mx-auto">
+                <div class="card bg-success text-center">
+                    <div class="card-body text-light">
+                        <h3>ユーザー更新</h3>
+                        <p>ユーザー情報を変更する場合は値を変更してください。</p>
+                        <!--ユーザー情報入力欄-->
+                        <form method="POST">
+                            {{ form.hidden_tag() }}
+                            <div class="mb-3">
+                                <!--username-->
+                                {{ render_field(form.username, placeholder="ユーザー名", class="form-control form-control-lg")}}
+                            </div>
+                            <div class="mb-3">
+                                <!--email-->
+                                {{ render_field(form.email, placeholder="メールアドレス", class="form-control form-control-lg")}}
+                            </div>
+                            <div class="mb-3">
+                                <!--email_confirm-->
+                                {{ render_field(form.email_confirm, placeholder="メールアドレス(確認)", class="form-control form-control-lg")}}
+                            </div>
+                            <hr>
+                            <div class="mb-3">
+                                <!--password-->
+                                {{ render_field(form.password, placeholder="パスワード", class="form-control form-control-lg")}}
+                            </div>
+                            <div class="mb-3">
+                                <!--password_confrim-->
+                                {{ render_field(form.password_confirm, placeholder="パスワード(確認)", class="form-control form-control-lg")}}
+                            </div>
+                            <hr>
+                            <!--update_btn-->
+                            {{ form.submit(class="btn btn-outline-light w-100") }}
+                        </form>
+                        <button type="button" class="btn btn-danger w-100" data-bs-toggle="modal" data-bs-target="#del_account_modal">
+                            削除
+                        </button>
+                        <!--ユーザー情報入力欄 end-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- アカウント削除モーダル -->
+<div class="modal fade" id="del_account_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">削除確認</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>このユーザーを削除しますか？</p>           
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+          <form action="{{url_for('users.delete_user', user_id=form.id)}}" method="POST">
+              <input type="submit" class="btn btn-danger" value="削除">
+          </form>
+        </div>
+    </div>
+    </div>
+</div>
+<!-- アカウント削除モーダル end-->
+
+{% endblock %}

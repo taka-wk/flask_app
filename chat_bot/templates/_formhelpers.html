@@ -1,0 +1,11 @@
+<!--入力チェックのエラーメッセージ用-->
+{% macro render_field(field) %}
+{{ field(**kwargs)|safe }}
+{% if field.errors %}
+    <br>
+    {% for error in field.errors %}
+        {{ error }}
+        <br>
+    {% endfor %}
+{% endif %}
+{% endmacro %}

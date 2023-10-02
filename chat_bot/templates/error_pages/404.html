@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<header id="page-header">
+    <div class="container-fluid my-3 py-4">
+        <h1>ページが見つかりません</h1>
+        <p>アクセスしたページが見つかりませんでした。<br>
+        再度アドレスをご確認ください。<br>
+        ※既に削除された可能性もございます。ご了承ください。</p>
+    </div>
+</header>
+
+<section id="menu">
+    <div class="container-fluid my-3 py-4">
+        <div class="row">
+            <div class="col-md-3 mx-auto">
+                <a href="{{url_for('users.logout')}}" class="btn btn-secondary w-100">ログイン画面へ戻る</a>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}
