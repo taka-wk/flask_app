@@ -13,13 +13,12 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
-        if user is not None:
-            if user.check_password(form.password.data):
-                login_user(user)
-                next = request.args.get('next')
-                if next == None or not next[0] == '/':
-                    next = url_for('users.top')
-                return redirect(next)
+        if (user is not None) and (user.check_password(form.password.data)):
+            login_user(user)
+            next = request.args.get('next')
+            if next == None or not next[0] == '/':
+                next = url_for('users.top')
+            return redirect(next)
         else:
             flash('該当のユーザーは存在しません')
     return render_template('users/login.html', form = form )
@@ -60,8 +59,8 @@ def update_user(user_id):
     form = UpdateUserForm(user_id)
     #「更新」ボタンが押下された場合
     if form.validate_on_submit():
-        form.username.data = user.username
-        form.email.data = user.email
+        user.username = form.username.data
+        user.email = form.email.data
         #パスワードが入力されている場合
         if form.password.data:
             user.password = form.password.data
